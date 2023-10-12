@@ -85,7 +85,10 @@ public class SocialMediaController {
         return messageService.deleteMessageGivenMessageId(message_id).toString();
     }
 
-    //@PatchMapping(value = "/messages/{message_id}")
+    @PatchMapping(value = "/messages/{message_id}")
+    public @ResponseBody String updateMessage(@PathVariable Integer message_id, @RequestBody Message message) {
+        return messageService.updateMessageText(message_id, message.getMessage_text()).toString();
+    }
 
     @GetMapping(value = "/accounts/{account_id}/messages")
     public @ResponseBody List<Message> retrieveAllMessagesForUser(@PathVariable Integer account_id) {

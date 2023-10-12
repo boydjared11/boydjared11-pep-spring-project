@@ -55,6 +55,24 @@ public class MessageService {
         return 1;
     }
 
+    public Integer updateMessageText(Integer message_id, String message_text) throws BadRequestException {
+        /*
+        if (messageRepository.getById(message_id) == null)
+            throw new BadRequestException("Message not found");
+        */
+        if (message_text == "")
+            throw new BadRequestException("New message_text is empty");
+
+        if (message_text.length() >= 255)
+            throw new BadRequestException("New message_text is over 255 characters");
+
+        int updatedRows = messageRepository.updateMessageText(message_id, message_text);
+        if (updatedRows == 0) {
+            throw new BadRequestException("Message not found with id " + message_id);
+        }
+        return updatedRows;
+    }
+
     public List<Message> getAllMessagesByAccountId(Integer account_id) {
         return messageRepository.getAllMessagesByAccountId(account_id);
     }
