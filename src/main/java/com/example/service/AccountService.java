@@ -27,7 +27,7 @@ public class AccountService {
     }
     */
     
-    public Account addAccount(Account account) throws Exception {
+    public Account addAccount(Account account) throws BadRequestException {
         if (account.getUsername() == "")
     		throw new BadRequestException("Username cannot be blank");
 

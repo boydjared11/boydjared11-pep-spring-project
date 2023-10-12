@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Account;
 import com.example.entity.Message;
+import com.example.exception.BadRequestException;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 
@@ -47,7 +48,7 @@ public class SocialMediaController {
 
     @PostMapping(value = "/register")
     //public ResponseEntity<Account> registerUser(@RequestBody Account account) {
-    public @ResponseBody Account registerUser(@RequestBody Account account) throws Exception {
+    public @ResponseBody Account registerUser(@RequestBody Account account) throws BadRequestException {
         return accountService.addAccount(account);
         /* 
         try {
@@ -62,7 +63,7 @@ public class SocialMediaController {
     //@PostMapping(value = "/login")
 
     @PostMapping(value = "/messages")
-    public @ResponseBody Message createMessage(@RequestBody Message message) throws Exception {
+    public @ResponseBody Message createMessage(@RequestBody Message message) throws BadRequestException {
         return messageService.addMessage(message);
     }
 
@@ -71,12 +72,18 @@ public class SocialMediaController {
         return messageService.getAllMessages();
     }
 
-    //@GetMapping(value = "/messages/{message_id}")
+    @GetMapping(value = "/messages/{message_id}")
+    public @ResponseBody Message retrieveMessageByMessageId(@PathVariable int message_id) throws BadRequestException {
+        return messageService.getMessageByMessageId(message_id);
+    }
 
     //@DeleteMapping(value = "/messages/{message_id}")
 
     //@PatchMapping(value = "/messages/{message_id}")
 
-    //@GetMapping(value = "/accounts/{account_id}/{messages}")
+    @GetMapping(value = "/accounts/{account_id}/messages")
+    public @ResponseBody List<Message> retrieveAllMessagesForUser(@PathVariable int account_id) {
+        return messageService.getAllMessagesByAccountId(account_id);
+    }
 
 }

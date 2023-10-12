@@ -21,7 +21,7 @@ public class MessageService {
         this.accountRepository = accountRepository;
     }
 
-    public Message addMessage(Message message) throws Exception {
+    public Message addMessage(Message message) throws BadRequestException {
         if (message.getMessage_text() == "") 
             throw new BadRequestException("Message text is blank");
         
@@ -36,5 +36,19 @@ public class MessageService {
 
     public List<Message> getAllMessages() {
         return messageRepository.findAll();
+    }
+
+    public Message getMessageByMessageId(int message_id) { //throws BadRequestException {
+        /*
+        if (messageRepository.getById(message_id) == null) {
+            throw new BadRequestException("Message not found");
+        }
+        */
+        return messageRepository.getById(message_id);
+            //.orElseThrow(() -> new BadRequestException("Message not found"));
+    }
+
+    public List<Message> getAllMessagesByAccountId(int account_id) {
+        return messageRepository.getAllMessagesByAccountId(account_id);
     }
 }

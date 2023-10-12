@@ -17,7 +17,7 @@ import com.example.entity.Account;
 //public class AccountRepository {
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
-    @Query("FROM Account WHERE username = :username")
+    @Query(value = "FROM Account WHERE username = :username")
     Account findByUsername(@Param("username") String username);
     /* 
     private final List<Account> accounts = new ArrayList<>();
