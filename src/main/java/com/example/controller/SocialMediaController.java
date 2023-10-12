@@ -47,8 +47,8 @@ public class SocialMediaController {
     }
 
     @PostMapping(value = "/register")
-    //public ResponseEntity<Account> registerUser(@RequestBody Account account) {
     public @ResponseBody Account registerUser(@RequestBody Account account) throws BadRequestException {
+    //public ResponseEntity<Account> registerUser(@RequestBody Account account) {
         return accountService.addAccount(account);
         /* 
         try {
@@ -73,7 +73,7 @@ public class SocialMediaController {
     }
 
     @GetMapping(value = "/messages/{message_id}")
-    public @ResponseBody Message retrieveMessageByMessageId(@PathVariable int message_id) throws BadRequestException {
+    public @ResponseBody Message retrieveMessageByMessageId(@PathVariable Integer message_id) throws BadRequestException {
         return messageService.getMessageByMessageId(message_id);
     }
 
@@ -82,7 +82,7 @@ public class SocialMediaController {
     //@PatchMapping(value = "/messages/{message_id}")
 
     @GetMapping(value = "/accounts/{account_id}/messages")
-    public @ResponseBody List<Message> retrieveAllMessagesForUser(@PathVariable int account_id) {
+    public @ResponseBody List<Message> retrieveAllMessagesForUser(@PathVariable Integer account_id) {
         return messageService.getAllMessagesByAccountId(account_id);
     }
 

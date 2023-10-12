@@ -13,12 +13,10 @@ import java.util.List;
 @Service
 public class MessageService {
     private final MessageRepository messageRepository;
-    private final AccountRepository accountRepository;
 
     @Autowired
     public MessageService(MessageRepository messageRepository, AccountRepository accountRepository) {
         this.messageRepository = messageRepository;
-        this.accountRepository = accountRepository;
     }
 
     public Message addMessage(Message message) throws BadRequestException {
@@ -28,7 +26,7 @@ public class MessageService {
         if (message.getMessage_text().length() >= 255)
             throw new BadRequestException("Message text is not under 255 characters");
         
-        if (accountRepository.getById(message.getPosted_by()) == null)
+        if (messageRepository.postedByRefersToRealExistingUser(message.getPosted_by()) == null)
             throw new BadRequestException("User not found");
 
         return messageRepository.save(message);
@@ -48,7 +46,7 @@ public class MessageService {
             //.orElseThrow(() -> new BadRequestException("Message not found"));
     }
 
-    public List<Message> getAllMessagesByAccountId(int account_id) {
+    public List<Message> getAllMessagesByAccountId(Integer account_id) {
         return messageRepository.getAllMessagesByAccountId(account_id);
     }
 }
