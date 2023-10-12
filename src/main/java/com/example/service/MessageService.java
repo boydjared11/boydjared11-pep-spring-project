@@ -46,6 +46,15 @@ public class MessageService {
             //.orElseThrow(() -> new BadRequestException("Message not found"));
     }
 
+    public Integer deleteMessageGivenMessageId(Integer message_id) throws BadRequestException {
+        if (messageRepository.getById(message_id) == null) 
+            throw new BadRequestException("User not found");
+
+        messageRepository.delete(messageRepository.getById(message_id));
+
+        return 1;
+    }
+
     public List<Message> getAllMessagesByAccountId(Integer account_id) {
         return messageRepository.getAllMessagesByAccountId(account_id);
     }

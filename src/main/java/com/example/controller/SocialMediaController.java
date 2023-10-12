@@ -60,7 +60,10 @@ public class SocialMediaController {
         */
     }
 
-    //@PostMapping(value = "/login")
+    @PostMapping(value = "/login")
+    public @ResponseBody Account verifyUser(@RequestBody Account account) {
+        return accountService.verifyUserGivenUsernameAndPassword(account.getUsername(), account.getPassword());
+    }
 
     @PostMapping(value = "/messages")
     public @ResponseBody Message createMessage(@RequestBody Message message) throws BadRequestException {
@@ -77,7 +80,10 @@ public class SocialMediaController {
         return messageService.getMessageByMessageId(message_id);
     }
 
-    //@DeleteMapping(value = "/messages/{message_id}")
+    @DeleteMapping(value = "/messages/{message_id}")
+    public @ResponseBody String deleteMessageGivenMessageId(@PathVariable Integer message_id) {
+        return messageService.deleteMessageGivenMessageId(message_id).toString();
+    }
 
     //@PatchMapping(value = "/messages/{message_id}")
 

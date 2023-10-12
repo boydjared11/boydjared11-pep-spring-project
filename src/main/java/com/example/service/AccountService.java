@@ -16,17 +16,6 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    /*
-    public Account addAccount(Account account) {
-        return accountRepository.findByUsername(account.getUsername());
-    }
-    */
-    /* 
-    public Account addAccount(Account account) {
-        return accountRepository.save(account);
-    }
-    */
-    
     public Account addAccount(Account account) throws BadRequestException {
         if (account.getUsername() == "")
     		throw new BadRequestException("Username cannot be blank");
@@ -37,9 +26,12 @@ public class AccountService {
         if (accountRepository.findByUsername(account.getUsername()) != null) {
             throw new BadRequestException("Username already exists");
         }
-    	// We have .get() here because our Repo is returning an Optional value 
-    	//return accountRepository.save(account).get();
         return accountRepository.save(account);
     }
     
+    public Account verifyUserGivenUsernameAndPassword(String username, String password) {
+        if (accountRepository.getUserGivenUsernameAndPassword(username, password) == null)
+            throw new BadRequestException("Invalid username and/or password");
+        return accountRepository.getUserGivenUsernameAndPassword(username, password);
+    }
 }
