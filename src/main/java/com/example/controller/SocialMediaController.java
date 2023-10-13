@@ -47,17 +47,8 @@ public class SocialMediaController {
     }
 
     @PostMapping(value = "/register")
-    public @ResponseBody Account registerUser(@RequestBody Account account) throws BadRequestException {
-    //public ResponseEntity<Account> registerUser(@RequestBody Account account) {
+    public @ResponseBody Account registerUser(@RequestBody Account account) {
         return accountService.addAccount(account);
-        /* 
-        try {
-			Account addedAccount = accountService.addAccount(account);
-			return new ResponseEntity<Account> (addedAccount, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<Account>(HttpStatus.BAD_REQUEST);
-		}
-        */
     }
 
     @PostMapping(value = "/login")

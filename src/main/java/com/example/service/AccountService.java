@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.exception.BadRequestException;
+import com.example.exception.ConflictException;
 import com.example.entity.Account;
 import com.example.repository.AccountRepository;
 
@@ -16,7 +17,7 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public Account addAccount(Account account) throws BadRequestException {
+    public Account addAccount(Account account) throws BadRequestException, ConflictException {
         if (account.getUsername() == "")
     		throw new BadRequestException("Username cannot be blank");
 
@@ -24,7 +25,7 @@ public class AccountService {
     		throw new BadRequestException("Password is not at least 4 characters long");
 
         if (accountRepository.findByUsername(account.getUsername()) != null) {
-            throw new BadRequestException("Username already exists");
+            throw new ConflictException("Username already exists");
         }
         return accountRepository.save(account);
     }
