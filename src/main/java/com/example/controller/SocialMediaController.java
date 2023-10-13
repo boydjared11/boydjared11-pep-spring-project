@@ -52,7 +52,7 @@ public class SocialMediaController {
     }
 
     @PostMapping(value = "/login")
-    public @ResponseBody Account verifyUser(@RequestBody Account account) {
+    public @ResponseBody Account loginUser(@RequestBody Account account) {
         return accountService.verifyUserGivenUsernameAndPassword(account.getUsername(), account.getPassword());
     }
 

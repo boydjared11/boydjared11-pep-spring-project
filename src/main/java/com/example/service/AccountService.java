@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.exception.BadRequestException;
 import com.example.exception.ConflictException;
+import com.example.exception.UnauthorizedException;
 import com.example.entity.Account;
 import com.example.repository.AccountRepository;
 
@@ -17,7 +18,7 @@ public class AccountService {
         this.accountRepository = accountRepository;
     }
 
-    public Account addAccount(Account account) throws BadRequestException, ConflictException {
+    public Account addAccount(Account account) {
         if (account.getUsername() == "")
     		throw new BadRequestException("Username cannot be blank");
 
@@ -32,7 +33,7 @@ public class AccountService {
     
     public Account verifyUserGivenUsernameAndPassword(String username, String password) {
         if (accountRepository.getUserGivenUsernameAndPassword(username, password) == null)
-            throw new BadRequestException("Invalid username and/or password");
+            throw new UnauthorizedException("Invalid username and/or password");
         return accountRepository.getUserGivenUsernameAndPassword(username, password);
     }
 }
