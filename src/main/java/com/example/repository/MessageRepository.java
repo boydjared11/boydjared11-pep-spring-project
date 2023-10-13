@@ -22,6 +22,9 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
     @Query(value = "FROM Message WHERE posted_by = :account_id")
     List<Message> getAllMessagesByAccountId(@Param("account_id") Integer account_id);
 
+    @Query(value = "FROM Message WHERE message_id = :message_id")
+    Message getMessageByMessageId(@Param("message_id") Integer message_id);
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE Message SET message_text = :message_text WHERE message_id = :message_id")

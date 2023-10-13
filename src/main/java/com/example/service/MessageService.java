@@ -9,6 +9,7 @@ import com.example.repository.MessageRepository;
 import com.example.repository.AccountRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MessageService {
@@ -36,23 +37,27 @@ public class MessageService {
         return messageRepository.findAll();
     }
 
-    public Message getMessageByMessageId(int message_id) {
-        /*
-        if (messageRepository.getById(message_id) == null) {
-            throw new BadRequestException("Message not found");
-        }
-        */
-        return messageRepository.getById(message_id);
-            //.orElseThrow(() -> new BadRequestException("Message not found"));
+    public Message getMessageByMessageId(Integer message_id) {
+        //return messageRepository.getById(message_id);
+        return messageRepository.getMessageByMessageId(message_id);
     }
 
     public Integer deleteMessageGivenMessageId(Integer message_id) {
+        /* 
         if (messageRepository.getById(message_id) == null) 
             throw new BadRequestException("User not found");
 
         messageRepository.delete(messageRepository.getById(message_id));
 
         return 1;
+        */
+        //Message message = messageRepository.getById(message_id);
+        if (messageRepository.getById(message_id) != null) {
+        //if () {
+            messageRepository.delete(messageRepository.getById(message_id));
+            return 1;
+        }
+        return 0;
     }
 
     public Integer updateMessageText(Integer message_id, String message_text) {
