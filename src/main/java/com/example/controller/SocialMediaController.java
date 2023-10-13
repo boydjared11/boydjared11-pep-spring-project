@@ -1,26 +1,17 @@
 package com.example.controller;
 
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.web.bind.annotation.RestController;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Account;
 import com.example.entity.Message;
-import com.example.exception.BadRequestException;
 import com.example.service.AccountService;
 import com.example.service.MessageService;
 
@@ -33,7 +24,6 @@ import java.util.List;
  * refer to prior mini-project labs and lecture materials for guidance on how a controller may be built.
  */
 @RestController
-//@RequestMapping("account")
 public class SocialMediaController {
 
     private final AccountService accountService;
@@ -57,7 +47,7 @@ public class SocialMediaController {
     }
 
     @PostMapping(value = "/messages")
-    public @ResponseBody Message createMessage(@RequestBody Message message) throws BadRequestException {
+    public @ResponseBody Message createMessage(@RequestBody Message message) {
         return messageService.addMessage(message);
     }
 
@@ -67,7 +57,7 @@ public class SocialMediaController {
     }
 
     @GetMapping(value = "/messages/{message_id}")
-    public @ResponseBody Message retrieveMessageByMessageId(@PathVariable Integer message_id) throws BadRequestException {
+    public @ResponseBody Message retrieveMessageByMessageId(@PathVariable Integer message_id) {
         return messageService.getMessageByMessageId(message_id);
     }
 
@@ -85,5 +75,4 @@ public class SocialMediaController {
     public @ResponseBody List<Message> retrieveAllMessagesForUser(@PathVariable Integer account_id) {
         return messageService.getAllMessagesByAccountId(account_id);
     }
-
 }

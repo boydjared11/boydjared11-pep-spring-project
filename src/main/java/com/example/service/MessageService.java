@@ -19,7 +19,7 @@ public class MessageService {
         this.messageRepository = messageRepository;
     }
 
-    public Message addMessage(Message message) throws BadRequestException {
+    public Message addMessage(Message message) {
         if (message.getMessage_text() == "") 
             throw new BadRequestException("Message text is blank");
         
@@ -36,7 +36,7 @@ public class MessageService {
         return messageRepository.findAll();
     }
 
-    public Message getMessageByMessageId(int message_id) { //throws BadRequestException {
+    public Message getMessageByMessageId(int message_id) {
         /*
         if (messageRepository.getById(message_id) == null) {
             throw new BadRequestException("Message not found");
@@ -46,7 +46,7 @@ public class MessageService {
             //.orElseThrow(() -> new BadRequestException("Message not found"));
     }
 
-    public Integer deleteMessageGivenMessageId(Integer message_id) throws BadRequestException {
+    public Integer deleteMessageGivenMessageId(Integer message_id) {
         if (messageRepository.getById(message_id) == null) 
             throw new BadRequestException("User not found");
 
@@ -55,11 +55,7 @@ public class MessageService {
         return 1;
     }
 
-    public Integer updateMessageText(Integer message_id, String message_text) throws BadRequestException {
-        /*
-        if (messageRepository.getById(message_id) == null)
-            throw new BadRequestException("Message not found");
-        */
+    public Integer updateMessageText(Integer message_id, String message_text) {
         if (message_text == "")
             throw new BadRequestException("New message_text is empty");
 
