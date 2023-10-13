@@ -42,9 +42,10 @@ public class MessageService {
     }
 
     public Integer deleteMessageGivenMessageId(Integer message_id) {
-        //if (messageRepository.getById(message_id) != null) {
-        if (messageRepository.getMessageByMessageId(message_id) != null) {
-            messageRepository.delete(messageRepository.getById(message_id));
+        //Message message = messageRepository.getById(message_id);
+        Message message = getMessageByMessageId(message_id);
+        if (message != null) {
+            messageRepository.delete(message);
             return 1;
         }
         return 0;
